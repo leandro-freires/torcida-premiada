@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Cadastro de Partidas</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}" />
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2 th:if="${partida.nova}">Cadastro de Partidas</h2>
+						<h2 th:unless="${partida.nova}">Edição de Partida</h2>
+						<ul class="nav navbar-right panel_toolbox">
+	                    	<li>
+	                    		<a th:href="@{/partida}"><i class="fa fa-search"></i> <span>Pesquisa de Partidas</span></a>
+	                      	</li>
+	                    </ul>
+						<div class="clearfix"></div>
+					</div>	
+					<div class="x_content">
+						<br />
+						<form method="POST" class="form-horizontal form-label-left" th:object="${partida}" th:action="@{/partida/novo}">
+							<tp:message />
+							
+							<input type="hidden" th:field="*{codigo}" />
+							<div class="form-group tp-required" tp:classforerror="equipeAnapolina">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="timeAnapolino">Time de Anapolino</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="timeAnapolino" class="select2_single form-control" tabindex="-1" th:field="*{equipeAnapolina}">
+										<option value="">Selecione um time</option>
+										<option th:each="equipeAnapolina : ${equipesAnapolinas}" th:value="${equipeAnapolina}" th:text="${equipeAnapolina.descricao}"></option>	
+									</select>
+								</div>
+							</div>
+							<div class="form-group tp-required" tp:classforerror="equipeAdversaria">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="equipeAdversaria">Time Adversário</label>
+								<div class="col-md-6 col-sm-6 col-xs-10">
+									<select id="equipeAdversaria" class="select2_single form-control" tabindex="-1" th:field="*{equipeAdversaria}">
+										<option value="">Selecione um time</option>
+										<option th:each="equipeAdversaria : ${equipesAdversarias}" th:value="${equipeAdversaria.codigo}" th:text="${equipeAdversaria.nome}"></option>	
+									</select>
+								</div>
+								<div class="col-md-1 col-sm-1 col-xs-1">
+									<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalCadastroRapidoEquipeAdversaria">
+										<i class="glyphicon glyphicon-plus"></i>
+									</a>
+								</div>	
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="data">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="dataDaPartida">Data</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" class="form-control js-date" autocomplete="off" id="dataDaPartida" 
+									th:field="*{data}" />
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="campeonato">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="campeonato">Campeonato</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="campeonato" class="select2_single form-control" tabindex="-1" th:field="*{campeonato}">
+										<option value="">Selecione um campeonato</option>
+										<option th:each="campeonato : ${capeonatos}" th:value="${campeonato}" th:text="${campeonato.descricao}"></option>	
+									</select>
+								</div>
+							</div>
+							
+							<div class="ln_solid"></div>
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+									<button type="submit" class="btn btn-primary js-cancelar-btn">Cancelar</button>
+									<button type="submit" class="btn btn-success">Salvar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="partida/cadastro-rapido-equipe-adversaria :: modal"></div>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/time-adversario.cadastro-rapido.js}"></script>
+	</th:block>
+</html>

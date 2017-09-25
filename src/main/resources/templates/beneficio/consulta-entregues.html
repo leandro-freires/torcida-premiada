@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Consulta de Benefícios Entregues</title>
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Pesquisa de Benefícios Entregues</h2>
+						<ul class="nav navbar-right panel_toolbox">
+	                    	<li>
+	                    		<a th:href="@{/beneficio/pendente}"><i class="fa fa-search"></i> <span>Pesquisa de Benefícios Pendentes</span></a>
+	                      	</li>
+	                    </ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<br />
+						<form method="GET" class="form-horizontal form-label-left" th:object="${beneficioFilter}" th:action="@{/beneficio/entregue}">
+							<tp:message />
+							
+							<div class="row">
+								<div class="form-group col-md-3 col-sm-3 col-xs-12">
+									<div>
+										<label for="tipo" class="control-label">Tipo de Pessoa</label>
+									</div>
+									<th:block th:each="tipoPessoa : ${tiposPessoas}">
+										<div class="radio radio-inline">
+											<input th:id="|id_${tipoPessoa}|" class="js-radio-tipo-pessoa" type="radio" name="tipoPessoa"
+											th:value="${tipoPessoa}" data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}" 
+											th:attr="data-documento=${tipoPessoa.documento}, data-mascara=${tipoPessoa.mascara}" />
+											<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}"></label>
+										</div>
+									</th:block>
+								</div>
+								<div class="form-group col-md-3 col-sm-3 col-xs-12">
+									<label class="control-label" for="cpfcnpj">CPF/CNPJ</label>
+									<input type="text" id="cpfcnpj" class="form-control" th:field="*{cpfOuCnpjContribuinte}" disabled="disabled" />
+								</div>
+								<div class="form-group col-md-6 col-sm-6 col-xs-12">
+									<label class="control-label" for="dataDe">Data da
+										Partida</label>
+									<div class="form-inline">
+										<input type="text" id="dataDe" class="form-control js-date"
+											autocomplete="off" th:field="*{dataInicial}" /> <label
+											class="control-label" for="dataAte">até</label> <input
+											type="text" id="dataAte" class="form-control js-date"
+											autocomplete="off" th:field="*{dataFinal}" />
+									</div>
+								</div>
+							</div>
+							
+							<button type="submit" class="btn btn-primary">Pesquisar</button>
+							<div class="ln_solid"></div>
+						</form>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+			                <div class="x_panel">
+			                  <div class="x_title">
+			                    <h2>Tabela de Benefícios</h2>
+			                    <div class="clearfix"></div>
+			                  </div>
+			                  <div class="x_content table-responsive">
+			                    <table id="tabelaDeBeneficios" class="table table-striped table-bordered">
+			                      <thead>
+			                        <tr>
+			                        	<th class="text-center">Data da Partida</th>
+			                          	<th class="text-center">CPF/CNPJ</th>
+			                          	<th class="text-center">Nome</th>
+			                          	<th class="text-center">Referência</th>
+			                          	<th class="text-center">Situação</th>
+			                        </tr>
+			                      </thead>
+			                      <tbody>
+			                      	<tr th:each="beneficio : ${pagina.conteudo}">
+			                      		<td class="text-center" th:text="${{beneficio.partida.data}}"></td>
+			                      		<td class="text-center" th:if="${beneficio.notaEletronicaDiferenteDeNull}" th:text="${beneficio.notaEletronica.contribuinte.cpfOuCnpj}"></td>
+			                      		<td class="text-center" th:unless=${beneficio.notaEletronicaDiferenteDeNull} th:text="${beneficio.imovel.contribuinte.cpfOuCnpj}"></td>
+			                      		<td th:if="${beneficio.notaEletronicaDiferenteDeNull}" th:text="${beneficio.notaEletronica.contribuinte.nome}"></td>
+			                      		<td th:unless=${beneficio.notaEletronicaDiferenteDeNull} th:text="${beneficio.imovel.contribuinte.nome}"></td>
+			                      		<td th:if="${beneficio.notaEletronicaDiferenteDeNull}" th:text="|REF. À NOTA FISCAL Nº ${beneficio.notaEletronica.numero} DE ${{beneficio.notaEletronica.dataEmissao}} CCM ${beneficio.notaEletronica.inscricaoPrestador}|"></td>
+			                      		<td th:unless=${beneficio.notaEletronicaDiferenteDeNull} th:text="|REF. AO ADIMPLEMENTO DA INSCRIÇÃO Nº ${beneficio.imovel.inscricaoImobiliaria} (${beneficio.imovel.condicaoDeResidente.descricao})|"></td>
+			                      		<td class="text-center">
+			                      			<span class="label" th:classappend="${beneficio.entregue} ? label-success : label-danger" 
+			                      			th:text="${beneficio.entregue} ? Entregue : Pendente"></span>
+			                      		</td>
+			                      	</tr>
+			                      	<tr th:if="${pagina.vazia}">
+			                      		<td colspan="5">Nenhum benefício entregue</td>
+			                      	</tr>
+			                      </tbody>
+			                    </table>
+			                  </div>
+			                </div>
+			              </div>
+					</div>
+					<tp:pagination page="${pagina}">
+				</div>
+			</div>
+		</div>
+	</section>
+	<th:block layout:fragment="javascript-extra"></th:block>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	layout:decorate="~{layout/layout-padrao}">
+
+<head>
+<title>Torcida Premiada - Cadastro de Contribuintes</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="clearfix"></div>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2 th:if="${contribuinte.novo}">Cadastro de Contribuinte</h2>
+					<h2 th:unless="${contribuinte.novo}">Edição de Contribuinte</h2>
+					<ul class="nav navbar-right panel_toolbox">
+						<li><a th:href="@{/contribuinte}"><i class="fa fa-search"></i>
+								<span>Pesquisa de Contribuintes</span></a></li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<br />
+					<form method="POST" id="contribuinteForm"
+						class="form-horizontal form-label-left"
+						th:object="${contribuinte}" th:action="@{/contribuinte/novo}">
+						<tp:message />
+
+						<input type="hidden" th:field="*{codigo}" />
+
+						<div class="form-group tp-required" tp:classforerror="tipoPessoa">
+							<label for="tipo" class="control-label col-md-3 col-sm-3 col-xs-12">Tipo de Pessoa</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<th:block th:each="tipoPessoa : ${tiposPessoas}">
+									<div class="radio radio-inline">
+										<input th:id="|id_${tipoPessoa}|" class="js-radio-tipo-pessoa" type="radio" 
+										th:field=*{tipoPessoa} th:value="${tipoPessoa}" data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}" 
+										th:attr="data-documento=${tipoPessoa.documento}, data-mascara=${tipoPessoa.mascara}" />
+										<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}"></label>
+									</div>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group tp-required" tp:classforerror="cpfOuCnpj">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12"
+								for="cpfcnpj">CPF/CNPJ</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="cpfcnpj"
+									class="form-control col-md-7 col-xs-12"
+									th:readonly="${not contribuinte.novo}" th:field="*{cpfOuCnpj}" disabled="disabled" />
+							</div>
+						</div>
+						<div class="form-group tp-required" tp:classforerror="nome">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12"
+								for="nome">Nome</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="nome"
+									class="form-control col-md-7 col-xs-12" th:field="*{nome}" />
+							</div>
+						</div>
+						<div class="form-group tp-required" tp:classforerror="telefone">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12"
+								for="telefone">Telefone</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="telefone"
+									class="form-control col-md-7 col-xs-12 js-phone-number"
+									th:field="*{telefone}" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12"
+								for="email">E-mail</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="email"
+									class="form-control col-md-7 col-xs-12" th:field="*{email}" />
+							</div>
+						</div>
+						<div class="ln_solid"></div>
+						<div class="form-group">
+							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+								<button type="submit" class="btn btn-primary js-cancelar-btn">Cancelar</button>
+								<button type="submit" class="btn btn-success">Salvar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra"></th:block>
+</html>

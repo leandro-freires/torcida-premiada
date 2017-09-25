@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Cadastro de Imóveis</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}" />
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2 th:if="${imovel.novo}">Cadastro de Imóveis</h2>
+						<h2 th:unless="${imovel.novo}">Edição de Imóvel</h2>
+						<ul class="nav navbar-right panel_toolbox">
+	                    	<li>
+	                    		<a th:href="@{/imovel}"><i class="fa fa-search"></i> <span>Pesquisa de Imóveis</span></a>
+	                      	</li>
+	                    </ul>
+						<div class="clearfix"></div>
+					</div>	
+					<div class="x_content">
+						<br />
+						<form method="POST" class="form-horizontal form-label-left" th:object="${imovel}" th:action="@{/imovel/novo}">
+							<tp:message />
+							
+							<input type="hidden" th:field="*{codigo}" />
+							<div class="form-group tp-required" tp:classforerror="inscricaoImobiliaria">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="inscricaoImobiliaria">Inscrição Imobiliária</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="inscricaoImobiliaria" maxlength="16" class="form-control col-md-7 col-xs-12 input-imobiliario" th:readonly="${not imovel.novo}" th:field="*{inscricaoImobiliaria}" />
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="contribuinte">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nomeContribuinte">Contribuinte</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="input-group">
+										<input type="text" id="nomeContribuinte" class="form-control" readonly="readonly" th:field="*{contribuinte.nome}" 
+											placeholder="Clique na lupa para pesquisar o contribuinte" />	
+										<input type="hidden" id="codigoContribuinte" th:field="*{contribuinte}" />
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default" title="Pesquisar" 
+												data-toggle="modal" data-target="#pesquisaRapidaDeContribuintes" th:disabled="${not imovel.novo}">
+												<i class="glyphicon glyphicon-search"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="condicaoDeResidente">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="condicaoDeResidente">Condição de Residente</label>
+								<th:block th:if="${not imovel.novo}">
+									<input type="hidden" th:field="*{condicaoDeResidente}" />
+								</th:block>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="condicaoDeResidente" class="select2_single form-control" tabindex="-1" th:field="*{condicaoDeResidente}" th:disabled="${not imovel.novo}">
+										<option value="">Selecione uma condição</option>
+										<option th:each="condicaoDeResidente : ${condicoesDeResidencia}" th:value="${condicaoDeResidente}" th:text="${condicaoDeResidente.descricao}"></option>	
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="situacao">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="situacao">Situação</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="situacao" class="select2_single form-control" tabindex="-1" th:field="*{situacao}">
+										<option value="">Selecione uma situação</option>
+										<option th:each="situacao : ${situacoes}" th:value="${situacao}" th:text="${situacao.descricao}"></option>	
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+								<div class="col-md-4 col-sm-4 col-xs-6">
+									<input type="checkbox" class="js-status" data-size="small"
+											data-on-color="primary" data-off-color="danger"
+											data-on-text="Ativo" data-off-text="Inativo"
+											data-inverse=true th:field="*{status}" />
+								</div>
+							</div>
+							
+							<div class="ln_solid"></div>
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+									<button type="submit" class="btn btn-primary js-cancelar-btn">Cancelar</button>
+									<button type="submit" class="btn btn-success">Salvar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<th:block th:replace="pesquisa-rapida/pesquisa-rapida-de-contribuintes :: pesquisaRapidaDeContribuintes"></th:block>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+		<script th:src="@{/javascripts/contribuinte.pesquisa-rapida.js}"></script>
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		<script>
+			$(".js-status").bootstrapSwitch();
+		</script>
+	</th:block>
+</html>

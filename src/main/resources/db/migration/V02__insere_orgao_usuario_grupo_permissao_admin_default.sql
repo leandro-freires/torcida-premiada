@@ -1,0 +1,106 @@
+INSERT INTO orgao(nome) VALUES ('SECRETARIA MUNICIPAL DA FAZENDA');
+
+INSERT INTO usuario(cpf, nome, email, senha, codigo_orgao, ativo) 
+VALUES ('00310339111', 'LEANDRO RODRIGUES FREIRES', 'leandrofreires@anapolis.go.gov.br',
+'$2a$10$CpoCkjO1PdPJ0A5.JZwi9.JMUPRHUSxKNALbj/sDgZ.DReOQtcOo2', 1, 1);
+
+INSERT INTO grupo(nome) VALUES ('ADMINISTRADOR');
+INSERT INTO grupo(nome) VALUES ('ATENDENTE');
+INSERT INTO grupo(nome) VALUES ('GERENTE');
+
+INSERT INTO permissao(nome) VALUES ('ROLE_CADASTRAR_USUARIO');
+INSERT INTO permissao(nome) VALUES ('ROLE_EDITAR_USUARIO');
+INSERT INTO permissao(nome) VALUES ('ROLE_CADASTRAR_ORGAO');
+INSERT INTO permissao(nome) VALUES ('ROLE_ATIVAR_USUARIO');
+INSERT INTO permissao(nome) VALUES ('ROLE_DESATIVAR_USUARIO');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONCEDER_PERMISSAO_ALTO_NIVEL');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONCEDER_PERMISSAO_BAIXO_NIVEL');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONSULTAR_USUARIO');
+INSERT INTO permissao(nome) VALUES ('ROLE_CADASTRAR_CONTRIBUINTE');
+INSERT INTO permissao(nome) VALUES ('ROLE_EDITAR_CONTRIBUINTE');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONSULTAR_CONTRIBUINTE');
+INSERT INTO permissao(nome) VALUES ('ROLE_CADASTRAR_IMOVEL');
+INSERT INTO permissao(nome) VALUES ('ROLE_EDITAR_IMOVEL');
+INSERT INTO permissao(nome) VALUES ('ROLE_ATIVAR_IMOVEL');
+INSERT INTO permissao(nome) VALUES ('ROLE_DESATIVAR_IMOVEL');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONCEDER_BENEFICIO_IMOVEL');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONSULTAR_IMOVEL');
+INSERT INTO permissao(nome) VALUES ('ROLE_CADASTRAR_NOTA');
+INSERT INTO permissao(nome) VALUES ('ROLE_EDITAR_NOTA');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONSULTAR_NOTA');
+INSERT INTO permissao(nome) VALUES ('ROLE_CADASTRAR_PARTIDA');
+INSERT INTO permissao(nome) VALUES ('ROLE_CADASTRAR_ADVERSARIO');
+INSERT INTO permissao(nome) VALUES ('ROLE_EDITAR_PARTIDA');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONSULTAR_PARTIDA');
+INSERT INTO permissao(nome) VALUES ('ROLE_CADASTRAR_INGRESSOS');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONSULTAR_BENEFICIOS_PENDENTES');
+INSERT INTO permissao(nome) VALUES ('ROLE_CONSULTAR_BENEFICIOS_ENTREGUES');
+INSERT INTO permissao(nome) VALUES ('ROLE_GERAR_RELATORIOS_GERENCIAIS');
+INSERT INTO permissao(nome) VALUES ('ROLE_ADMINISTRADOR');
+INSERT INTO permissao(nome) VALUES ('ROLE_GERENTE');
+INSERT INTO permissao(nome) VALUES ('ROLE_ATENDENTE');
+
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 1);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 2);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 3);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 4);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 5);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 6);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 7);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 8);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 9);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 10);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 11);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 12);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 13);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 14);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 15);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 16);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 17);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 18);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 19);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 20);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 21);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 22);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 23);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 24);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 25);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 26);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 27);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 28);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (1, 29);
+
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 9);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 10);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 11);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 12);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 13);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 16);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 17);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 18);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 19);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 20);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 25);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 26);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 27);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (2, 31);
+
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 9);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 10);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 11);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 12);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 13);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 14);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 15);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 16);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 17);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 18);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 19);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 20);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 25);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 26);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 27);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 28);
+INSERT INTO grupo_permissao(codigo_grupo, codigo_permissao) VALUES (3, 30);
+
+INSERT INTO usuario_grupo(codigo_usuario, codigo_grupo) VALUES (1, 1);

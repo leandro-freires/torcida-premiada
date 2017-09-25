@@ -1,0 +1,13 @@
+CREATE TABLE equipe (
+    codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE partida (
+	codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+	equipe_anapolina VARCHAR(250) NOT NULL,
+	equipe_adversaria BIGINT(20) NOT NULL,
+	data DATE NOT NULL,
+	campeonato VARCHAR(250) NOT NULL,
+    FOREIGN KEY (equipe_adversaria) REFERENCES equipe(codigo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

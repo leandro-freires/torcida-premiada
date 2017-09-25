@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Cadastro de Notas Fiscais</title>
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2 th:if="${notaEletronica.nova}">Cadastro de Notas Fiscais</h2>
+						<h2 th:unless="${notaEletronica.nova}">Edição de Nota Fiscal</h2>
+						<ul class="nav navbar-right panel_toolbox">
+	                    	<li>
+	                    		<a th:href="@{/nota}"><i class="fa fa-search"></i> <span>Pesquisa de Notas Fiscais</span></a>
+	                      	</li>
+	                    </ul>
+						<div class="clearfix"></div>
+					</div>	
+					<div class="x_content">
+						<br />
+						<form method="POST" class="form-horizontal form-label-left" th:object="${notaEletronica}" th:action="@{/nota/novo}">
+							<tp:message />
+							
+							<input type="hidden" th:field="*{codigo}" />
+							<div class="form-group tp-required" tp:classforerror="tipoDeSerie">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="tipoDeSerie">Tipo de Série</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="tipoDeSerie" class="select2_single form-control" tabindex="-1" th:field="*{tipoDeSerie}">
+										<option value="">Selecione uma série</option>
+										<option th:each="tipoDeSerie : ${tiposDeSeries}" th:value="${tipoDeSerie}" th:text="${tipoDeSerie.descricao}"></option>	
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="dataEmissao">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="dataEmissao">Data da Emissão</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" class="form-control js-date" autocomplete="off" id="dataEmissao" 
+									th:field="*{dataEmissao}" />
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="contribuinte.codigo">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nomeContribuinte">Contribuinte</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="input-group">
+										<input type="text" id="nomeContribuinte" class="form-control" readonly="readonly" th:field="*{contribuinte.nome}" 
+											placeholder="Clique na lupa para pesquisar o contribuinte" />	
+										<input type="hidden" id="codigoContribuinte" th:field="*{contribuinte}" />
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default" title="Pesquisar" 
+												data-toggle="modal" data-target="#pesquisaRapidaDeContribuintes">
+												<i class="glyphicon glyphicon-search"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="inscricaoPrestador">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="inscricao">Inscrição Municipal do Prestador</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="inscricao" maxlength="10" class="form-control col-md-7 col-xs-12" th:field="*{inscricaoPrestador}" />
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="numero">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numero">Número</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="numero" maxlength="11" class="form-control col-md-7 col-xs-12 tp-js-plain" th:field="*{numero}" />
+								</div>
+							</div>
+							
+							<div class="form-group tp-required" tp:classforerror="codigoVerificacao">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Código de Verificação</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="nome" maxlength="9" class="form-control col-md-7 col-xs-12" th:field="*{codigoVerificacao}" />
+								</div>
+							</div>
+							
+							<div class="ln_solid"></div>
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+									<button type="submit" class="btn btn-primary js-cancelar-btn">Cancelar</button>
+									<button type="submit" class="btn btn-success">Salvar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<th:block th:replace="pesquisa-rapida/pesquisa-rapida-de-contribuintes :: pesquisaRapidaDeContribuintes"></th:block>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+		<script th:src="@{/javascripts/contribuinte.pesquisa-rapida.js}"></script>
+	</th:block>
+</html>

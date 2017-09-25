@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layout/layout-padrao}">
+
+<head>
+<title>Torcida Premiada - Página Inicial</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class=""
+		sec:authorize="hasAnyRole('ROLE_ADMINISTRADOR', 'ROLE_GERENTE')">
+		<div class="clearfix"></div>
+
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Página Inicial</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+
+						<div class="row top_tiles" style="margin: 10px 0;">
+							<div class="col-md-3 col-sm-3 col-xs-6 tile">
+								<span>Contribuintes Cadastrados</span>
+								<h2>[[${valorTotalDeContribuintes}]]</h2>
+								<span class="sparkline_one" style="height: 160px;">
+									<canvas width="200" height="60"
+										style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+								</span>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-6 tile">
+								<span>Imóveis Ativos Cadastrados</span>
+								<h2>[[${valorTotalDeImoveis}]]</h2>
+								<span class="sparkline_one" style="height: 160px;">
+									<canvas width="200" height="60"
+										style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+								</span>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-6 tile">
+								<span>Notas Fiscais Cadastradas</span>
+								<h2>[[${valorTotalDeNotas}]]</h2>
+								<span class="sparkline_two" style="height: 160px;">
+									<canvas width="200" height="60"
+										style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+								</span>
+							</div>
+							<div class="col-md-3 col-sm-3 col-xs-6 tile">
+								<span>Total de Ingressos Distribuídos</span>
+								<h2>[[${valorTotalDeBeneficiosEntregues}]]</h2>
+								<span class="sparkline_one" style="height: 160px;">
+									<canvas width="200" height="60"
+										style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+								</span>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="x_panel">
+									<div class="x_title">
+										<h2>
+											Ingressos Distribuídos por Partida<small>no último mês</small>
+										</h2>
+										<div class="clearfix"></div>
+									</div>
+									<div class="x_content">
+										<canvas id="graficoIngressosPorPartida"></canvas>
+									</div>
+								</div>
+								<br />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/vendors/Chart.min.js}"></script>
+	<script th:src="@{/javascripts/home.graficos.js}"></script>
+</th:block>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+	<div id="modalCadastroRapidoEquipeAdversaria" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" th:fragment="modal">
+		<div class="modal-dialog modal-xs">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h4 class="modal-title">Cadastro Rápido da Equipe Adversária</h4>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger alert-dismissible fade in hidden js-container-mensagem-erro-cadastro-rapido" role="alert"></div>
+					<form class="form-horizontal form-label-left" th:action="@{/timeAdversario}">
+						<div class="form-group tp-required">
+							<label class="control-label col-md-2 col-sm-2 col-xs-12" for="nomeTimeAdversario">Nome</label>
+							<div class="col-md-8 col-sm-8 col-xs-12">
+								<input type="text" id="nomeTimeAdversario" class="form-control" />
+							</div>
+						</div>
+			      	</form>     
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary js-modal-cadastro-rapido-btn-salvar">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>

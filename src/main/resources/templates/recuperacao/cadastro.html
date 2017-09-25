@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Alteração de Senha</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}" />
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Alteraçõa de Senha</h2>
+						<div class="clearfix"></div>
+					</div>	
+					<div class="x_content">
+						<br />
+						<form method="POST" id="usuarioForm" class="form-horizontal form-label-left" th:object="${usuario}" th:action="@{/usuario/novo}">
+							<tp:message />
+							
+							<div class="form-group tp-required" th:if="${usuario.novo}" tp:classforerror="senha">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="senha">Senha</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="password" id="senha" class="form-control col-md-7 col-xs-12" th:field="*{senha}" />
+								</div>
+							</div>
+							<div class="form-group tp-required" th:if="${usuario.novo}" tp:classforerror="confirmacaoDeSenha">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="confirmacao">Confirmação de Senha</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="password" id="confirmacao" class="form-control col-md-7 col-xs-12" th:field="*{confirmacaoDeSenha}" />
+								</div>
+							</div>
+							
+							<div class="ln_solid"></div>
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+									<button type="submit" class="btn btn-primary js-cancelar-btn">Cancelar</button>
+									<button type="submit" class="btn btn-success">Salvar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<th:block layout:fragment="javascript-extra"></th:block>
+</html>

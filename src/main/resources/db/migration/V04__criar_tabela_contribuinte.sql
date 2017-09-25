@@ -1,0 +1,8 @@
+CREATE TABLE contribuinte (
+    codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    tipo_pessoa VARCHAR(15) NOT NULL,
+    cpf_cnpj VARCHAR(14) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    email VARCHAR(200)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

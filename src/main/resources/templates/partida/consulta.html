@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Consulta de Partidas</title>
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Pesquisa de Partidas</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<br />
+						<form method="GET" class="form-horizontal form-label-left" th:object="${partidaFilter}" th:action="@{/partida}">
+							<div class="row">
+								<div class="form-group col-md-6 col-sm-6 col-xs-12">
+									<label class="control-label" for="equipe">Equipe Anapolina</label>
+									<div>
+										<select id="equipe" class="form-control select2_single" tabindex="-1" th:field="*{equipeAnapolina}">
+											<option value="">Selecione uma equipe</option>
+											<option th:each="equipeAnapolina : ${equipesAnapolinas}" th:value="${equipeAnapolina}" th:text="${equipeAnapolina.descricao}"></option>	
+										</select>
+									</div>
+								</div>
+								<div class="form-group col-md-6 col-sm-6 col-xs-12">
+									<label class="control-label">Campeonato</label>
+									<div>
+										<select id="orgao" class="form-control select2_single" tabindex="-1" th:field="*{campeonato}">
+											<option value="">Selecione um campeonato</option>
+											<option th:each="campeonato : ${capeonatos}" th:value="${campeonato}" th:text="${campeonato.descricao}"></option>	
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-5 col-sm-5 col-xs-12">
+									<label class="control-label" for="dataDe">Data da Partida</label>
+									<div class="form-inline">
+										<input type="text" id="dataDe" class="form-control js-date" autocomplete="off" th:field="*{dataInicial}" />
+										<label class="control-label" for="dataAte">até</label>
+										<input type="text" id="dataAte" class="form-control js-date" autocomplete="off" th:field="*{dataFinal}" />
+									</div>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-primary">Pesquisar</button>
+							<div class="ln_solid"></div>
+						</form>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+			                <div class="x_panel">
+			                  <div class="x_title">
+			                    <h2>Tabela de Partidas</h2>
+			                    <div class="clearfix"></div>
+			                  </div>
+			                  <div class="x_content table-responsive">
+			                    <table class="table table-striped table-bordered">
+			                      <thead>
+			                        <tr>
+			                          <th class="text-center">
+			                          	Data da Partida
+			                          	<!-- <tp:order page="${pagina}" field="partida.data" text="Data da Partida" /> -->
+			                          </th>
+			                          <th class="text-center">Equipe Anapolina</th>
+			                          <th class="text-center">Equipe Adversária</th>
+			                          <th class="text-center">Campeonato</th>
+			                          <th class="text-center"></th>
+			                        </tr>
+			                      </thead>
+			                      <tbody>
+			                      	<tr th:each="partida : ${pagina.conteudo}">
+			                      		<td class="text-center" th:text="${{partida.data}}"></td>
+			                      		<td th:text="${partida.equipeAnapolina.descricao}"></td>
+			                      		<td th:text="${partida.equipeAdversaria.nome}"></td>
+			                      		<td th:text="${partida.campeonato.descricao}"></td>
+			                      		<td class="text-center">
+			                      			<a class="btn btn-link btn-xs" title="Editar" data-placement="top" data-toggle="tooltip" 
+			                      			th:href="@{/partida/{codigo}(codigo=${partida.codigo})}">
+												<i class="fa fa-edit"></i>
+											</a>
+			                      		</td>
+			                      	</tr>
+			                      	<tr th:if="${pagina.vazia}">
+			                      		<td colspan="5">Nenhuma partida foi encontrada</td>
+			                      	</tr>
+			                      </tbody>
+			                    </table>
+			                  </div>
+			                </div>
+			              </div>
+					</div>
+					<tp:pagination page="${pagina}">
+				</div>
+			</div>
+		</div>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+	</th:block>
+</html>

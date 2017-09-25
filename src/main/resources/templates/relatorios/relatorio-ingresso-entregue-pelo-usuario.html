@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Relatório de Ingressos Distribuídos</title>
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Relatório de Ingressos Entregues pelo Usuário</h2>
+
+						<div class="clearfix"></div>
+					</div>	
+					<div class="x_content">
+						<br />
+						<form method="POST" class="form-horizontal form-label-left" th:object="${ingressoEntregueRelatorio}" th:action="@{/relatorio/ingressosEntreguesPeloUsuario}">
+							<tp:message />
+							
+							<div class="form-group tp-required">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numeroIngressoA">Número do Ingresso</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" maxlength="5" class="form-control js-numero-ingresso" autocomplete="off" id="numeroIngressoA" 
+									th:field="*{numeroDoIngresso}" />
+								</div>
+							</div>
+
+							<div class="form-group tp-required">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="partida">Partida</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="partida" class="select2_single form-control" tabindex="-1" th:field="*{partida}">
+										<option value="">Selecione uma partida</option>
+										<option th:each="partida : ${partidas}" th:value="${partida.codigo}" th:text="|${{partida.data}} - ${partida.equipeAnapolina.descricao} x ${partida.equipeAdversaria.nome}|"></option>	
+									</select>
+								</div>
+							</div>
+							
+							<div class="ln_solid"></div>
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+									<button type="submit" class="btn btn-success">Gerar Relatório</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<th:block layout:fragment="javascript-extra"></th:block>
+</html>

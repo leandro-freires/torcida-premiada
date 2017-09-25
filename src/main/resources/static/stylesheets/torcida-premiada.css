@@ -1,0 +1,19 @@
+#logo-login {
+	max-width: 200px;
+	max-height: 150px;
+	width: auto;
+	height: auto;
+}
+
+.tp-required>.control-label:after {
+	content: "*";
+}
+
+.checkbox input[type="checkbox"]:checked+input+label::after {
+	font-family: 'FontAwesome';
+	content: "\f00c";
+}
+
+.ts-field-action {
+	display: flex;
+}

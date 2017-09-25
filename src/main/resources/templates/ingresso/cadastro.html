@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Cadastro de Ingressos</title>
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2 th:if="${beneficio.notaEletronicaDiferenteDeNull}" th:text="|Cadastro de Ingressos do Benefício de ${beneficio.notaEletronica.contribuinte.cpfOuCnpj}|"></h2>
+						<h2 th:unless="${beneficio.notaEletronicaDiferenteDeNull}" th:text="|Cadastro de Ingressos do Benefício de ${beneficio.imovel.contribuinte.cpfOuCnpj}|"></h2>
+						<ul class="nav navbar-right panel_toolbox">
+	                    	<li>
+	                    		<a th:href="@{/beneficio}"><i class="fa fa-search"></i> <span>Pesquisa de Benefícios Concedidos</span></a>
+	                      	</li>
+	                    </ul>
+						<div class="clearfix"></div>
+					</div>	
+					<div class="x_content">
+						<br />
+						<form method="POST" class="form-horizontal form-label-left" th:object="${beneficio}" th:action="@{/beneficio/ingresso/cadastrar}">
+							<tp:message />
+							
+							<div class="form-group tp-required">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numeroIngressoA">Ingresso 1</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" maxlength="5" class="form-control js-numero-ingresso" autocomplete="off" id="numeroIngressoA" 
+									th:field="*{numeroIngressoA}" />
+								</div>
+							</div>
+							
+							<div class="form-group tp-required">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="numeroIngressoB">Ingresso 2</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" maxlength="5" class="form-control js-numero-ingresso" autocomplete="off" id="numeroIngressoB" 
+									th:field="*{numeroIngressoB}" />
+								</div>
+							</div>
+							
+							<div class="form-group tp-required">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="partida">Partida</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select id="partida" class="select2_single form-control" tabindex="-1" th:field="*{partida}">
+										<option value="">Selecione uma partida</option>
+										<option th:each="partida : ${partidas}" th:value="${partida.codigo}" th:text="|${{partida.data}} - ${partida.equipeAnapolina.descricao} x ${partida.equipeAdversaria.nome}|"></option>	
+									</select>
+								</div>
+							</div>
+							
+							<input type="hidden" th:field="*{codigo}" />
+							<input type="hidden" th:field="*{notaEletronica}" />
+							<input type="hidden" th:field="*{imovel}" />
+							<input type="hidden" th:field="*{contribuinte}" />
+							
+							<div class="ln_solid"></div>
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+									<button type="submit" class="btn btn-primary js-cancelar-btn">Cancelar</button>
+									<button type="submit" class="btn btn-success">Salvar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script>
+			var numeroIngresso = $('.js-numero-ingresso');
+				
+			numeroIngresso.maskNumber({
+				precision: 0,
+				thousands: '',
+				decimal: ''
+			});
+		</script>
+	
+	
+	</th:block>
+</html>

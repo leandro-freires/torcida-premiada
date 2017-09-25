@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tp="http://www.apptrechos.com.br"
+	layout:decorate="~{layout/layout-padrao}">
+
+	<head>
+		<title>Torcida Premiada - Cadastro de Usuários</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}" />
+	</head>
+
+	<section layout:fragment="conteudo">
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2 th:if="${usuario.novo}">Cadastro de Usuário</h2>
+						<h2 th:unless="${usuario.novo}">Edição de Usuário</h2>
+						<ul class="nav navbar-right panel_toolbox">
+	                    	<li>
+	                    		<a th:href="@{/usuario}"><i class="fa fa-search"></i> <span>Pesquisa de Usuários</span></a>
+	                      	</li>
+	                    </ul>
+						<div class="clearfix"></div>
+					</div>	
+					<div class="x_content">
+						<br />
+						<form method="POST" id="usuarioForm" class="form-horizontal form-label-left" th:object="${usuario}" th:action="@{/usuario/novo}">
+							<tp:message />
+							
+							<input type="hidden" th:field="*{codigo}" />
+							<div class="form-group tp-required" tp:classforerror="cpf" >
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="cpf">CPF</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="cpf" class="form-control col-md-7 col-xs-12 input-cpf" th:readonly="${not usuario.novo}" th:field="*{cpf}">
+								</div>
+							</div>
+							<div class="form-group tp-required" tp:classforerror="nome">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="nome">Nome Completo</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="nome" class="form-control col-md-7 col-xs-12" th:field="*{nome}" />
+								</div>
+							</div>
+							<div class="form-group tp-required" tp:classforerror="email">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">E-mail</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="email" class="form-control col-md-7 col-xs-12" th:field="*{email}" />
+								</div>
+							</div>
+							<div class="form-group tp-required" tp:classforerror="orgao">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Órgão de Lotação</label>
+								<div class="col-md-6 col-sm-6 col-xs-10">
+									<select id="orgao" class="select2_single form-control" tabindex="-1" th:field="*{orgao}">
+										<option value="">Selecione o órgão de lotação</option>
+										<option th:each="orgao : ${orgaos}" th:value="${orgao.codigo}" th:text="${orgao.nome}"></option>	
+									</select>
+								</div>
+								<div class="col-md-1 col-sm-1 col-xs-1">
+									<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalCadastroRapidoOrgao">
+										<i class="glyphicon glyphicon-plus"></i>
+									</a>
+								</div>	
+							</div>
+							<div class="form-group tp-required" th:if="${usuario.novo}" tp:classforerror="senha">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="senha">Senha</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="password" id="senha" class="form-control col-md-7 col-xs-12" th:field="*{senha}" />
+								</div>
+							</div>
+							<div class="form-group tp-required" th:if="${usuario.novo}" tp:classforerror="confirmacaoDeSenha">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12" for="confirmacao">Confirmação de Senha</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="password" id="confirmacao" class="form-control col-md-7 col-xs-12" th:field="*{confirmacaoDeSenha}" />
+								</div>
+							</div>
+							<div class="form-group" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="checkbox" class="js-status" data-size="small"
+											data-on-color="primary" data-off-color="danger"
+											data-on-text="Ativo" data-off-text="Inativo"
+											data-inverse=true th:field="*{ativo}" />
+								</div>
+							</div>
+							<div class="form-group tp-required" tp:classforerror="grupos">
+								<label class="col-md-3 col-sm-3 col-xs-12 control-label">Grupos</label>
+								<div class="col-md-9 col-sm-9 col-xs-12">
+									<th:block th:each="grupo : ${grupos}">
+										<div class="checkbox checkbox-primary checkbox-inline">
+											<input type="checkbox" th:field="*{grupos}" th:value="${grupo.codigo}" />
+											<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>
+							<div class="ln_solid"></div>
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+									<button type="submit" class="btn btn-primary js-cancelar-btn">Cancelar</button>
+									<button type="submit" class="btn btn-success">Salvar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="usuario/cadastro-rapido-orgao-lotacao :: modal"></div>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		<script th:src="@{/javascripts/orgao.cadastro-rapido.js}"></script>
+		<script>
+			$(".js-status").bootstrapSwitch();
+		</script>
+	</th:block>
+</html>

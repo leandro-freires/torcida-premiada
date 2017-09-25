@@ -1,0 +1,22 @@
+<script id="tabelaDeContribuintes" type="text/x-handlebars-template">
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th class="text-center">CPF/CNPJ</th>
+				<th class="text-center">Nome</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#if .}}	
+				<tr data-codigo="{{codigo}}" data-nome="{{nome}}" class="js-resultado-da-pesquisa-rapida-do-contribuinte">
+			    	<td class="text-center"><a href="#" class="js-link">{{cpfOuCnpj}}</a></td>
+					<td><a href="#" class="js-link">{{nome}}</a></td>
+				</tr>
+			{{else}}
+				<tr>
+					<td colspan="2">Nenhum contribuinte foi encontrado</td>
+				</tr>
+			{{/if}}
+		</tbody>
+	</table>
+</script>
